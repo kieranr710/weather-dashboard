@@ -74,3 +74,30 @@ button:hover {
   margin-top: 15px;
   color: #555;
 }
+
+.date-time {
+  color: #666;
+  font-size: 14px;
+}
+
+.forecast {
+  margin-top: 25px;
+}
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.forecast-day {
+  background: #f3f4f6;
+  border-radius: 10px;
+  padding: 10px 5px;
+  font-size: 13px;
+}
+
+.forecast-icon {
+  font-size: 24px;
+}

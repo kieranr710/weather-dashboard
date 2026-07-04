@@ -30,6 +30,28 @@ function getWeatherDescription(code) {
   return "Unknown weather";
 }
 
+function formatDate(dateString) {
+  const date = new Date(dateString);
+
+  return date.toLocaleDateString("en-GB", {
+    weekday: "short",
+    day: "numeric",
+    month: "short"
+  });
+}
+
+function getCurrentDateTime() {
+  const now = new Date();
+
+  return now.toLocaleString("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
+
 async function getWeather() {
   const city = cityInput.value.trim();
   const result = document.getElementById("weatherResult");
@@ -53,7 +75,8 @@ async function getWeather() {
 
     const location = geoData.results[0];
 
-    const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&current_weather=true`;
+    const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto`;
+
     const weatherResponse = await fetch(weatherUrl);
     const weatherData = await weatherResponse.json();
 
@@ -61,14 +84,40 @@ async function getWeather() {
     const icon = getWeatherIcon(current.weathercode);
     const description = getWeatherDescription(current.weathercode);
 
+    let forecastHTML = "";
+
+    for (let i = 0; i < 5; i++) {
+      const day = weatherData.daily.time[i];
+      const maxTemp = weatherData.daily.temperature_2m_max[i];
+      const minTemp = weatherData.daily.temperature_2m_min[i];
+      const code = weatherData.daily.weathercode[i];
+
+      forecastHTML += `
+        <div class="forecast-day">
+          <strong>${formatDate(day)}</strong>
+          <div class="forecast-icon">${getWeatherIcon(code)}</div>
+          <div>${Math.round(maxTemp)}° / ${Math.round(minTemp)}°</div>
+        </div>
+      `;
+    }
+
     result.innerHTML = `
+      <p class="date-time">${getCurrentDateTime()}</p>
       <div class="weather-icon">${icon}</div>
       <h2>${location.name}, ${location.country}</h2>
       <div class="temperature">${current.temperature}°C</div>
       <p>${description}</p>
+
       <div class="weather-details">
         <p>Wind Speed: ${current.windspeed} km/h</p>
         <p>Wind Direction: ${current.winddirection}°</p>
+      </div>
+
+      <div class="forecast">
+        <h3>5-Day Forecast</h3>
+        <div class="forecast-grid">
+          ${forecastHTML}
+        </div>
       </div>
     `;
   } catch (error) {
