@@ -5,12 +5,17 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Weather Dashboard</h1>
+  <main class="weather-card">
+    <h1>Weather Dashboard</h1>
+    <p class="subtitle">Search for live weather by city</p>
 
-  <input id="cityInput" type="text" placeholder="Enter a city">
-  <button onclick="getWeather()">Search</button>
+    <div class="search-box">
+      <input id="cityInput" type="text" placeholder="Enter a city">
+      <button onclick="getWeather()">Search</button>
+    </div>
 
-  <div id="weatherResult"></div>
+    <div id="weatherResult" class="weather-result"></div>
+  </main>
 
   <script src="script.js"></script>
 </body>
