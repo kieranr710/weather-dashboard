@@ -1,15 +1,31 @@
-# Weather Dashboard
+# 🌦 Weather Dashboard
 
-A simple weather dashboard built using HTML, CSS and JavaScript. The app allows users to search for a city and view current weather information using the Open-Meteo API.
+A responsive weather dashboard built using HTML, CSS and JavaScript.
 
 ## Features
-- Search weather by city
-- View current temperature
-- View wind speed
-- Uses a free public weather API
+
+- Search any city
+- Current weather
+- 5-Day Forecast
+- Weather icons
+- Current date & time
+- Press Enter to search
+- Responsive interface
 
 ## Technologies
-- HTML
-- CSS
+
+- HTML5
+- CSS3
 - JavaScript
 - Open-Meteo API
+
+## Screenshots
+
+(Add screenshots here)
+
+## Future Improvements
+
+- Current location
+- Dark Mode
+- Hourly Forecast
+- Favourite Cities
